@@ -4,13 +4,16 @@ import logging
 import urllib2
 from urlparse import urlparse
 import time
+import shutil
 
 import log
 import globalvar
 import string
 
-import process.m3u8download
-
+def empty_TMP():
+    if os.path.exists(globalvar.TMP_DIR) :
+        shutil.rmtree(globalvar.TMP_DIR)
+    
 
 def getChannelsList():
     list=[]
@@ -50,41 +53,6 @@ def getVideoURL(param):
     videoLinks=globalvar.channels[channel][1].getVideoURL(param)
     #test()
     return videoLinks
-
-def parse_m3u8s(url):
-    req = urllib2.Request(url)
-    req.add_header(
-        'User-Agent',
-        'Mozilla/5.0 (Windows NT 5.1; rv:15.0) Gecko/20100101 Firefox/15.0.1')
-    req.add_header('Referer', url)
-    response= urllib2.urlopen(req)
-    parsed_uri = urlparse(response.geturl())
-    base_URL='{uri.scheme}://{uri.netloc}{uri.path}'.format(uri=parsed_uri)
-    base_URL=base_URL[:base_URL.rfind('/')]
-    
-    list=[]
-    item=[]
-    webcontent = response.read()
-    a=webcontent.splitlines()
-    
-    i=0
-    while i < len(a):
-        line=a[i]
-        if line.startswith("#EXT-X-STREAM-INF"):
-            item=['','','','m3u8_mp4','video']
-            line=line.replace('#EXT-X-STREAM-INF:','')
-            infos=line.split(',')
-            for info in infos:
-                if info.startswith('RESOLUTION='):
-                    item[0]=info[-len(info)+11:]
-                if info.startswith('BANDWIDTH='):
-                    item[2]=int(info[-len(info)+10:])
-            i+=1
-            line=a[i]
-            item[1]=base_URL + '/' + line
-            list.append(item)
-        i+=1
-    return list
     
 def getWebContent(url):
     req = urllib2.Request(url)
@@ -126,7 +94,3 @@ def format_filename(s):
     valid_chars = "-_.() %s%s" % (string.ascii_letters, string.digits)
     filename = ''.join(c for c in s if c in valid_chars)
     return filename
-    
-def test():
-    file_path = os.path.join(globalvar.TMP_DIR, 'test.mp4')
-    process.m3u8download.download_m3u8(getWebContent('http://ios-q1.tf1.fr/2/USP-0x0/13/33/13611333/ssm/13611333.ism/13611333-audio=64000.m3u8?vk=MTM2MTEzMzMubTN1OA==&st=i2OsLrutB0Ds-K9KClAQGw&e=1548380835&t=1548370035&min_bitrate='),file_path,globalvar.TMP_DIR)

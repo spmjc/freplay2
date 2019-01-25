@@ -1,6 +1,7 @@
 import json
 
 import resources.lib.utils
+import resources.lib.m3u8
 
 title=['TF1','TMC','TFX','TF1 Series Films']
 img=['tf1','tmc','tfx','tf1-series-films']
@@ -40,17 +41,17 @@ def getList(param):
                     infoLabels = { "Title": title,"Plot":plot,"Duration": duration}
                     list.append( [title,param + "|" + vid['streamId'].encode('utf-8'), '',infoLabels,'list3'] )
     elif len(params)==4:
-        videoLinks=[]
+        file_name=''
+        # get filename
+        list=getList(param[:param.rfind('|')])
+        for name, url, icon, infoLabels, mode in list:
+            print url + param
+            if url==param:
+                file_name=resources.lib.utils.format_filename(name) + '.mp4'
+                
         params=param.split("|")
         id=params[3]
         VideoURL= 'http://wat.tv/get/ipad/' + id
-        return resources.lib.utils.parse_m3u8s(VideoURL)
+        return resources.lib.m3u8.parse_m3u8s(file_name,VideoURL)
     
     return list
-
-def getVideoURL(param):
-    videoLinks=[]
-    params=param.split("|")
-    id=params[3]
-    VideoURL= 'http://wat.tv/get/ipad/' + id
-    return resources.lib.utils.parse_m3u8s(VideoURL)

@@ -6,7 +6,6 @@ import resources.lib.utils
 import urllib2
 from urlparse import urlparse
 
-
 cwd = os.getcwd()
 
 
@@ -60,3 +59,39 @@ def download_m3u8_ts_mp4(m3u8_file,mp4_path, tmp_path):
             
 	for ts_file in ts_file_list:
 		os.remove(ts_file)
+		
+def parse_m3u8s(file_name,url):
+    file_name=resources.lib.utils.format_filename(file_name)
+    req = urllib2.Request(url)
+    req.add_header(
+        'User-Agent',
+        'Mozilla/5.0 (Windows NT 5.1; rv:15.0) Gecko/20100101 Firefox/15.0.1')
+    req.add_header('Referer', url)
+    response= urllib2.urlopen(req)
+    parsed_uri = urlparse(response.geturl())
+    base_URL='{uri.scheme}://{uri.netloc}{uri.path}'.format(uri=parsed_uri)
+    base_URL=base_URL[:base_URL.rfind('/')]
+    
+    list=[]
+    item=[]
+    webcontent = response.read()
+    a=webcontent.splitlines()
+    
+    i=0
+    while i < len(a):
+        line=a[i]
+        if line.startswith("#EXT-X-STREAM-INF"):
+            item=['','','',[file_name,'m3u8_mp4'],'video']
+            line=line.replace('#EXT-X-STREAM-INF:','')
+            infos=line.split(',')
+            for info in infos:
+                if info.startswith('RESOLUTION='):
+                    item[0]=info[-len(info)+11:]
+                if info.startswith('BANDWIDTH='):
+                    item[2]=int(info[-len(info)+10:])
+            i+=1
+            line=a[i]
+            item[1]=base_URL + '/' + line
+            list.append(item)
+        i+=1
+    return list

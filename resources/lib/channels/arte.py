@@ -36,11 +36,18 @@ def getList(param):
                 for teaser in prgm['teasers']: 
                     list.append( [teaser['title'].encode('utf-8'),param + "|" + teaser['programId'].encode('utf-8'), '','','list3'] )
     elif len(params)==4: 
+        file_name=''
+        # get filename
+        list=getList(param[:param.rfind('|')])
+        for name, url, icon, infoLabels, mode in list:
+            if url==param:
+                file_name=resources.lib.utils.format_filename(name) + '.mp4'
+        
         list=[]
         id=params[3]
         jsonParser     = json.loads(resources.lib.utils.getWebContent(urlVideo % id)) 
         for stream in jsonParser['videoStreams']:
             if stream['quality']:
-                list.append([stream['audioLabel'] + " (" + str(stream['width']) + "x" + str(stream['height']) + ")",stream['url'],stream['width'] * stream['height'],'mp4','video'])
+                list.append([stream['audioLabel'] + " (" + str(stream['width']) + "x" + str(stream['height']) + ")",stream['url'],stream['width'] * stream['height'],[file_name,'mp4'],'video'])
     
     return list

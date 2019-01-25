@@ -3,7 +3,7 @@ import os
 
 import resources.lib.utils
 import resources.lib.globalvar
-import resources.lib.process.m3u8download
+import resources.lib.m3u8
 
 
 resources.lib.globalvar.TMP_DIR=os.path.join(os.path.dirname(os.path.abspath(__file__)), "tmp")
@@ -33,15 +33,17 @@ def loadList(param):
         param=list[item][1]
         print "Option Selected: " + param
         if list[item][4]=="video":
-            if list[item][3]=="m3u8_mp4":
-                file_path = os.path.join(resources.lib.globalvar.TMP_DIR, 'test.mp4')
-                resources.lib.process.m3u8download.download_m3u8_ts_mp4(list[item][1],file_path,resources.lib.globalvar.TMP_DIR)
+            if list[item][3][1]=="m3u8_mp4":
+                file_path = os.path.join(resources.lib.globalvar.TMP_DIR, list[item][3][0])
+                resources.lib.m3u8.download_m3u8_ts_mp4(list[item][1],file_path,resources.lib.globalvar.TMP_DIR)
             elif list[item][3]=="mp4":
                 print "soon"
         else:
             loadList(param)
 
-loadList(None)
+#loadList(None)
+
+resources.lib.utils.empty_TMP()
 
 #resources.lib.utils.getChannelsList()
-#loadList('arte|ACT|AJO|087505-000-A')
+#loadList('tmc|emission|65f61f3a-1fe2-4fea-a354-1df1f165515a|13601232')
