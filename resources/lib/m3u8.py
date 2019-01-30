@@ -2,16 +2,18 @@
 import sys
 import os
 import requests
-import resources.lib.utils
 import urllib2
 from urlparse import urlparse
+
+import utils
+import item
 
 cwd = os.getcwd()
 
 
 def download_ts(path, url_list):
 	ts_files = []
-	i=0
+	i=1
 	for url in url_list:
 		print 'Downloading chunk' + str(i) + '/' + str(len(url_list))
 		i+=1
@@ -43,12 +45,14 @@ def get_list_m3u8_ts(url):
     webcontent = response.read()
     a=webcontent.splitlines()
     for line in a:
-        if line.endswith(".ts"):
-            list.append(base_URL + '/' + line)
+        if not line.startswith("#") and len(line)>5:
+            if line.startswith('http'):
+                list.append(line)
+            else:
+                list.append(base_URL + '/' + line)
     return list
     
 def download_m3u8_ts_mp4(m3u8_file,mp4_path, tmp_path):
-    
 	ts_list = get_list_m3u8_ts(m3u8_file)
 	ts_file_list = download_ts(tmp_path, ts_list)
 	
@@ -61,7 +65,7 @@ def download_m3u8_ts_mp4(m3u8_file,mp4_path, tmp_path):
 		os.remove(ts_file)
 		
 def parse_m3u8s(file_name,url):
-    file_name=resources.lib.utils.format_filename(file_name)
+    file_name=utils.format_filename(file_name)
     req = urllib2.Request(url)
     req.add_header(
         'User-Agent',
@@ -73,7 +77,7 @@ def parse_m3u8s(file_name,url):
     base_URL=base_URL[:base_URL.rfind('/')]
     
     list=[]
-    item=[]
+    #item=[]
     webcontent = response.read()
     a=webcontent.splitlines()
     
@@ -81,17 +85,27 @@ def parse_m3u8s(file_name,url):
     while i < len(a):
         line=a[i]
         if line.startswith("#EXT-X-STREAM-INF"):
-            item=['','','',[file_name,'m3u8_mp4'],'video']
+            #item=['','','',[file_name,'m3u8_mp4'],'video']
             line=line.replace('#EXT-X-STREAM-INF:','')
             infos=line.split(',')
+            
+            qualityName=''
+            resolution=''
+            url=''
+            
             for info in infos:
                 if info.startswith('RESOLUTION='):
-                    item[0]=info[-len(info)+11:]
+                    qualityName=info[-len(info)+11:]
                 if info.startswith('BANDWIDTH='):
-                    item[2]=int(info[-len(info)+10:])
+                    resolution=int(info[-len(info)+10:])
             i+=1
             line=a[i]
-            item[1]=base_URL + '/' + line
-            list.append(item)
+            if line.startswith('http'):
+                url=line
+            else:
+                url=base_URL + '/' + line
+            #list.append(item)
+            
+            list.append(item.Video(url,qualityName,resolution,'mp4'))
         i+=1
     return list

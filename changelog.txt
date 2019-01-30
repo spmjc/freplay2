@@ -1,0 +1,238 @@
+Version 0.6.16
+  -Added Au Feminin.com
+  -Fixed RTBF
+  -Fixed Canal-U
+  -Fixed INA
+  -Fixed BeCuriousTv
+  -Fixed TF1 (Thanks quatsch)
+  -Fixed M6 (Thanks Electrocut)
+  
+Version 0.6.15
+  -Fixed Most Viewed
+  -Misc Fixes
+  
+Version 0.6.14
+  -Fixed Allocine
+  -Added Les Docus
+  -Fixed RMC Decouvertes
+  
+Version 0.6.13
+  -Added Nat Geo
+  -Added Bein Sport
+  -Added RMC Decouverte
+  -Added Futura Sciences
+  -Updated DailyMotion management (Thanks Wark91)
+  -Updated M6 (Thanks Kagonia)
+  
+Version 0.6.12
+  -Fixed Allocine
+  -Fixed vTele
+  
+Version 0.6.11
+  -Added Jeux Video.com
+  -Added Tetes a claques (merci gdusart)
+  -Fixed Gully (Merci mperreir)
+  -Fixed M6 (Merci jeangu)
+  
+Version 0.6.10
+  -Fixed Canal +
+  -Renamed iTele to cNews
+  -Fixed l'equipe TV
+  -Fixed Allocine
+  
+Version 0.6.9
+  -Fixzd NRJ12
+  
+Version 0.6.8
+  -Reverted to TF1 API
+
+Version 0.6.7
+  -Fixed NRJ12, Cherie25
+  
+Version 0.6.6
+  -Fixed issue while charging 6play lists
+  -Fixed duration for 6play
+  -Added RTBF Auvio
+  -Fixed Allocine
+
+Version 0.6.5
+  -Added M6 group channels
+  -Added INA (Thanks Gdusart)
+  
+Version 0.6.4
+  -D8/D17 -> C8/CStar
+  -Fix TF1 when duration is empty
+  -Update Gulli
+
+Version 0.6.3
+  -Reworked TF1
+  -Deactivated Wat
+  -Fixed iTele
+  
+Version 0.6.2
+  -Added BeCurious TV
+  -Updated TouTV
+  -Fixed NRJ12 & Cherie25
+  -Fixed Gully (Thanks to mperreir)
+  -Fixed TF1 (thanks vaurele) 
+
+Version 0.6.1
+  -Added RTS (Maybe)
+  
+Version 0.6.0
+  -Added Gulli
+  
+Version 0.5.10
+  -Added VTele
+  
+Version 0.5.9
+  -Fixed France TV - New try
+  -Fixed AlloCine
+  
+Version 0.5.8
+  -Fixed France TV
+  -Fixed NRJ12
+  -Fixed AlloCine
+  
+Version 0.5.7
+  -Fixed Arte
+  -Added Menu to Organize Channels
+  
+Version 0.5.6
+  -Added Cherie25
+  -Added Wat.tv
+  
+Version 0.5.5
+ -Added Canal U
+ -Fixed NRJ12
+ -Fixed Pluzz
+ -Fixed NT1 (Thanks to vaurele)
+ 
+Version 0.5.4
+ -Fixed NRJ12
+
+Version 0.5.3
+  -Fix
+  
+Version 0.5.2
+  -Added Allocine
+  -Fixed Canal +
+  
+Version 0.5.1
+  -Added HD1
+  -Added TV5 Monde + Afrique
+  -Added BFM Business
+  -Added LCP
+  -Added L'Equipe.fr
+  -Added Most viewed (Icon from Passion - Thanks)
+  -Fixed ARTE (Thanks to Torok)
+  -Fixed logo display issue
+  -Default Contextual menu re-enabled
+  -Added option to force HD on TF1, TMC, NT1, HD1
+  -Updated addon.xml : added BeautifulSoup4 import in required section (for LCP channel)
+  -Updated catalog download. Use last modified date instead of creation date
+  -Updated France TV
+  -Updated Settings  
+  
+Version 0.5.0
+  -Work on the encoding and the source code (Preparation to release on official Kodi Repo)
+  -Improved catalog management: Downloaded if too old (defaut is 60 minutes)
+  -Improved channels management (Source + Order and Display/Hide)
+  -Added
+    -BFMTV
+    -iTele
+    -Tou.TV
+    -France 24
+  -Improved
+    -D8
+    -D17
+  -Started to add settings by channel (more to come)
+  
+21 April 2015 Version 0.4.2
+  -Added Ability to download .mp4
+  
+18 April 2015 Version 0.4.1
+  -Fixed ARTE
+  -Added NRJ12
+	
+12 April 2015 version 0.4.0
+  -Added D8
+  -Added D17
+
+10 Apr 2015 version 0.3.9
+  -Fixed ARTE
+    
+09 Apr 2015 version 0.3.8
+  -Improved TF1,NT1,TMC - Thanks to kunaruto and nekwebdev
+  -Fixed dependencies thanks to Julien094
+  -Fixed ARTE
+
+11/10/2014 version 0.3.7
+  -Fixed Canal+
+
+04/10/2014 version 0.3.5
+  -Fixed Canal+
+  -Added TF1 + NT1 + TMC full videos (Partially works)
+  -Partially fixed Arte	-First version on the repo :)
+
+23/04/2014 version 0.3.4
+  -Fixed Canal+
+	
+30/03/2014 version 0.3.2
+  -Added Search function for Canal + (will add for others later)
+	
+	
+26/03/2014 version 0.3.1
+  -Fixed dependencies
+  -Ordered channels
+	
+24/03/2014 version 0.3.0
+  -Added NT1+TMC
+  -Changed Channels list to Dictionnary
+  -Icons
+	
+22/03/2014 version 0.2.1
+  -Added TF1
+  -Fixed Favorites issue
+  -Show Videos as episodes (Confluence)
+  -More metadata displayed
+	
+20/03/2014 Version 0.2
+  -Added Arte
+  -Added France TV Pluzz
+  -Added Favorite Management
+  -Watched items working
+
+14/03/2014 Version 0.1 par SPM
+  -Canal+ OK
+    TODO:
+    	-Icon Addon
+    	-Show only Favorites unseen
+    	-Other channels
+    		-Pluzz
+    		-D8
+    		-D17
+    		-Gully
+    		-HD1
+    		-NT1
+    		-Arte
+    		-BFM TV
+    		-France 24
+    		-TF1
+    		-M6/W9
+    		-equipe TV
+    		    		
+    	-Contextual Menu
+    		-Mark as watched
+    		-Download
+    		-Mark All as Watched
+    		-Add to Favorites
+    	-Settings
+    		-Video Quality
+    		-Channels to Display
+    	
+
+
+
+
+

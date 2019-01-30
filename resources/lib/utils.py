@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import imp
 import logging
@@ -9,43 +10,66 @@ import shutil
 import log
 import globalvar
 import string
+import item
 
 def empty_TMP():
     if os.path.exists(globalvar.TMP_DIR) :
         shutil.rmtree(globalvar.TMP_DIR)
+    if not os.path.exists(globalvar.TMP_DIR):
+        os.makedirs(globalvar.TMP_DIR)
     
 
-def getChannelsList():
+def getList(param):
     list=[]
+    if param==None:
+        for subdir, dirs, files in os.walk(globalvar.CHANNELS_DIR):
+            for file in files:
+                filename, extension = os.path.splitext(file)
+                extension = extension.upper()
+                if extension == '.PY' and file != '__init__.py':
+                    f, filepath, description = imp.find_module(
+                        filename, [globalvar.CHANNELS_DIR])
+                    try:
+                        channelModule = imp.load_module(
+                            filename, f, filepath, description)
+                    except Exception:
+                        logging.exception(
+                            "Error loading channel module " + filepath)
     
-    for subdir, dirs, files in os.walk(globalvar.CHANNELS_DIR):
-        for file in files:
-            filename, extension = os.path.splitext(file)
-            extension = extension.upper()
-            if extension == '.PY' and file != '__init__.py':
-                f, filepath, description = imp.find_module(
-                    filename, [globalvar.CHANNELS_DIR])
-                try:
-                    channelModule = imp.load_module(
-                        filename, f, filepath, description)
-                except Exception:
-                    logging.exception(
-                        "Error loading channel module " + filepath)
-
-                if channelModule.readyForUse:
-                    for i in range(0, len(channelModule.title)):
-                        order = getOrderChannel(channelModule.img[i])
-                        list.append( [channelModule.title[i], channelModule.img[i], channelModule.title[i], '','home'] )
-                        globalvar.channels[channelModule.img[i]] = [channelModule.title[i], channelModule, order]
+                    if channelModule.readyForUse:
+                        for i in range(0, len(channelModule.title)):
+                            order = getOrderChannel(channelModule.img[i])
+                            list.append(item.Channel(channelModule.title[i],filename + '+' + channelModule.img[i], channelModule.title[i]))
+    else:
+        channel=getChannel(param)
+        module=getModule(param)
+        
+        f, filepath, description = imp.find_module(module, [globalvar.CHANNELS_DIR])
+        channelModule = imp.load_module(channel, f, filepath, description)
+        list=channelModule.getList(param)
     return list
+
+def getChannel(param):
+    return param.split("|")[0].split('+')[1]
+    
+def getModule(param):
+    return param.split("|")[0].split('+')[0]
                         
 def getOrderChannel(chanName):
     return 1
-
+    
 def getListFromChannel(param):
     params=param.split("|")
     channel=params[0]
-    return globalvar.channels[channel][1].getList(param)
+    list=[]
+    f, filepath, description = imp.find_module(channel, [globalvar.CHANNELS_DIR])
+    try:
+        channelModule = imp.load_module(channel, f, filepath, description)
+        list=channelModule.getList(param)
+    except Exception: 
+        logging.exception("Error loading channel module " + filepath)
+    
+    return list
 
 def getVideoURL(param):
     params=param.split("|")

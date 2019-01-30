@@ -1,32 +1,97 @@
+# -*- coding: utf-8 -*-
 import cmd
 import os
+import json
+import time
 
-import resources.lib.utils
-import resources.lib.globalvar
+import resources.lib.utils as utils
+import resources.lib.globalvar as globalvar
+import resources.lib.item as item
 
 
-resources.lib.globalvar.TMP_DIR=os.path.join(os.path.dirname(os.path.abspath(__file__)), "tmp")
+globalvar.TMP_DIR=os.path.join(os.path.dirname(os.path.abspath(__file__)), "tmp")
+
+testResult={}
+
+def saveTestResult():
+    file_path = os.path.join(globalvar.TMP_DIR, 'testResult.json')
+    file = open(file_path, 'w')
+    file.write(json.dumps(testResult, sort_keys=False,indent=4))
+    file.close()
+    
+def start():
+    testResult['start']=round(time.time(),0)
+    
+def end():
+    testResult['end']=round(time.time(),0)
+    testResult['duration']=testResult['end']-testResult['start']  
+    saveTestResult()
+    print 'Testing complete'
+    
+def addVideo(chan):
+    if chan not in testResult:
+        testResult[chan]={}
+        
+    if 'videos' not in testResult[chan]:
+        testResult[chan]['videos']=0
+        
+    testResult[chan]['videos']+=1
+    
+def addSuccess(param):
+    params=param.split('|')
+    chan=params[0]
+    
+    if chan not in testResult:
+        testResult[chan]={}
+        
+    if 'links' not in testResult[chan]:
+        testResult[chan]['links']=0
+        
+    testResult[chan]['links']+=1
+    
+def addError(param,error):
+    params=param.split('|')
+    chan=params[0]
+    
+    if chan not in testResult:
+        testResult[chan]={}
+    
+    if error not in testResult[chan]:
+        testResult[chan][error]=[]
+        
+    testResult[chan][error].append(param)
+        
 
 def tester(param):
     list=[]
    
-    
-    if param is None:
-        list=resources.lib.utils.getChannelsList()
-    else:
-         list=resources.lib.utils.getListFromChannel(param)
-         if param.find('|')==-1:
-            print 'Testing Channel: ' + param
-         list=resources.lib.utils.getListFromChannel(param)
+    if param != None:
+        print 'Testing: ' + param
     
     try:
-        for name, url, icon, infoLabels, mode in list:
-            if mode=="video":
-                videoLinks= resources.lib.utils.getVideoURL(url)
+        url=''
+        list=utils.getList(param)  
+        if len(list)==0:
+            addError(param,'No item in list')
+        for itm in list:
+            if itm.mode!="video":
+                addSuccess(itm.url)
+                if(itm.name!='<< Page Precedente' and param!='tools+tools'):
+                    tester(itm.url)
             else:
-                tester(url)
+                addVideo(param.split('|')[0])
     except Exception, e:
-        print 'Error with this link: ' + url + ' ' + str(e)
+        if url=='':
+            addError(param,str(e))
+        else:
+            addError(url,str(e))
 
+start()
+
+#tester('allocine+allocine')
 tester(None)
+utils.empty_TMP()
+end()
+
+#https://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console
     
