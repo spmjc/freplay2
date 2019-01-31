@@ -14,7 +14,7 @@ Work in progress
 - [x] Create Gitignore
 - [ ] Return ordered table with quality for video link
 - [x] Add Tools menu
-- [ ] Add Update button with Status
+- [x] Add Update button with Status
 - [x] Add Clean cache menu
 - [ ] Use Settings file
 - [x] Add TF1 (With link for movies working)

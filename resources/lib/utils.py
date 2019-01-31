@@ -78,12 +78,15 @@ def getVideoURL(param):
     #test()
     return videoLinks
     
-def getWebContent(url):
+def getWebContent(url,headers={}):
+    if headers:
+        if 'User-Agent' not in headers:
+            headers['User-Agent'] = 'Mozilla/5.0 (Windows NT 5.1; rv:15.0) Gecko/20100101 Firefox/15.0.1'
+    else:
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 5.1; rv:15.0) Gecko/20100101 Firefox/15.0.1'}
     req = urllib2.Request(url)
-    req.add_header(
-        'User-Agent',
-        'Mozilla/5.0 (Windows NT 5.1; rv:15.0) Gecko/20100101 Firefox/15.0.1')
-    req.add_header('Referer', url)
+    for h in headers:
+        req.add_header(h, headers[h])
     response= urllib2.urlopen(req)
     webcontent = response.read()
     return webcontent

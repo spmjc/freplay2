@@ -46,4 +46,4 @@ def loadList(param):
             loadList(param)
 
 loadList(None)
-#loadList('allocine+allocine|158001+1|/video/programme-11027/')
+#loadList('thecw+thecw|riverdale|3|b0a79de4-fd83-4ebd-8774-9c032c87ac00')

@@ -20,8 +20,7 @@ def getFileContent(inputFile):
     return openedFile.read()
 
 def compareDirGithubLocal(sGHDir,sLocDir):
-    #print 'Scanning directory:' + sGHDir
-    url=baseGithubURL + '/' + sGHDir
+    url='https://api.github.com/repos/spmjc/freplay2/contents' + '/' + sGHDir
     req = urllib2.Request(url)
     response= urllib2.urlopen(req)
     jsonParser     = json.loads(response.read()) 
@@ -49,6 +48,7 @@ def update_file(file_path, content):
     file.close()
 
 def run():
+    getRateLimits()
     print'Generating list of files to update'
     compareDirGithubLocal('',baseLocalURL)
     print str(len(addFile)) + ' to create'
@@ -58,3 +58,4 @@ def run():
     for i in updateFile:
         update_file(i[1],getGithubContent(i[0]))
     print 'Done'
+
