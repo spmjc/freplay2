@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import urllib
 
 import globalvar
 
@@ -36,6 +37,9 @@ class Item:
     def getKey(self):
         if self.mode=='video':
             return self.resolution
+    
+    def getEncodedURL(self):
+        return urllib.quote(self.url, safe='')
         
 class Channel(Item):
     

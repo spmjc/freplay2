@@ -1,8 +1,10 @@
 import web
+import urllib
 
 import resources.lib.utils as utils
 
 urls = (
+	'/playVideo/(.*)' , 'video',
 	'/(.*)', 'index'
 )
 
@@ -16,6 +18,11 @@ class index:
 			param=None
 		myList=utils.getList(param)
 		return render.index(myList = myList)
-
+		
+class video(object):
+        def GET(self,param):
+        	url = urllib.unquote(param).decode('utf8')
+        	return render.video(videoLink = url)
+            
 if __name__ == "__main__":
 	app.run()

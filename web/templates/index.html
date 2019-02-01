@@ -14,7 +14,7 @@ $def with (myList)
 			<div class="list-group">
 				$for itm in myList:
 					$if itm.mode=='video':
-						<a class="list-group-item" href="$itm.url">$itm.getDisplayTitle()</a>
+						<a class="list-group-item" href="/playVideo/$itm.getEncodedURL()">$itm.getDisplayTitle()</a>
 					$else:
 						<a class="list-group-item" href="/$itm.url">$itm.getDisplayTitle()</a>
 			</div>

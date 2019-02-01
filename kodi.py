@@ -29,10 +29,8 @@ def loadList(param):
     i=0
     list=utils.getList(param)
     
-    print "============================"
     for itm in list: 
         url2 = build_url({'mode': itm.mode, 'param': itm.url})
-        print itm.icon
         li = xbmcgui.ListItem(
             itm.getDisplayTitle(),
             iconImage=itm.icon,
@@ -63,5 +61,4 @@ else:
           succeeded=True,
           updateListing=False)
     else:
-        print 'list'
         loadList(args['param'][0])
