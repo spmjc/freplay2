@@ -33,6 +33,10 @@ class Item:
             "Duration": self.duration}
         return infoLabels
         
+    def getKey(self):
+        if self.mode=='video':
+            return self.resolution
+        
 class Channel(Item):
     
     def __init__(self, name, url, icon=''):

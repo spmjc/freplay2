@@ -7,12 +7,12 @@ Work in progress
 ## Available in 3 modes:
 - XBMC (in progress)
 - "Console mode" (python console.py)
-- Web View Mode (Not available yet)
+- Web View Mode (python webview.py)
 
 ## ToDo List:
 - [x] Save Catalog
 - [x] Create Gitignore
-- [ ] Return ordered table with quality for video link
+- [x] Return ordered table with quality for video link
 - [x] Add Tools menu
 - [x] Add Update button with Status
 - [x] Add Clean cache menu
@@ -30,6 +30,6 @@ Work in progress
 - [ ] Test in XBMC
 - [ ] Improve TF1, Arte, Allocine, Pluzz (Infolables + TF1 movies)
 - [ ] Release XBMC Version
-- [ ] Activate Webview
+- [x] Activate Webview
 - [ ] Migrate Other Channels
 - [ ] Add American channels (CBS,...)

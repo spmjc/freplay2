@@ -47,7 +47,15 @@ def getList(param):
         f, filepath, description = imp.find_module(module, [globalvar.CHANNELS_DIR])
         channelModule = imp.load_module(channel, f, filepath, description)
         list=channelModule.getList(param)
+        
+        def getKey(itm):
+            return itm.getKey()
+        if len(list)>0:
+            if list[0].mode=='video':
+                list.sort(key=getKey,reverse=True)
     return list
+
+
 
 def getChannel(param):
     return param.split("|")[0].split('+')[1]
