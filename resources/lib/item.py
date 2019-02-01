@@ -19,7 +19,12 @@ class Item:
         self.fileType=None
         
     def getDisplayTitle(self):
-        return self.name.title()
+        if self.mode=='channel':
+            return self.name
+        if self.mode=='folder':
+            return self.name.title()
+        else:
+            return self.qualityName.title()
     
     def getInfoLabels(self):
         infoLabels = {

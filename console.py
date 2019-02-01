@@ -45,5 +45,5 @@ def loadList(param):
         else:
             loadList(param)
 
-lloadList(None)
+loadList(None)
 #loadList('thecw+thecw|more-video|1|80fb61c2-5425-4f8c-9e83-af951df318c8')

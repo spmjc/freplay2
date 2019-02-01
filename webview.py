@@ -1,9 +1,9 @@
 import web
 
-import resources.lib.utils
+import resources.lib.utils as utils
 
 urls = (
-	'/', 'index'
+	'/(.*)', 'index'
 )
 
 app = web.application(urls, globals())
@@ -11,9 +11,11 @@ app = web.application(urls, globals())
 render = web.template.render('web/templates/')
 
 class index:
-	def GET(self):
-	    myList=resources.lib.utils.getChannelsList()
-	    return render.index(myList = myList)
+	def GET(self,param):
+		if param=="":
+			param=None
+		myList=utils.getList(param)
+		return render.index(myList = myList)
 
 if __name__ == "__main__":
 	app.run()

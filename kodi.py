@@ -32,13 +32,13 @@ def loadList(param):
     print "============================"
     for itm in list: 
         url2 = build_url({'mode': itm.mode, 'param': itm.url})
+        print itm.icon
         li = xbmcgui.ListItem(
             itm.getDisplayTitle(),
             iconImage=itm.icon,
             thumbnailImage=itm.icon,
             path=itm.url) 
         if itm.mode == 'video':
-            print 'here'
             li.setInfo( type='Video', infoLabels={})
             li.setProperty('IsPlayable', 'true')
             xbmcplugin.addSortMethod(addon_handle, xbmcplugin.SORT_METHOD_NONE)
@@ -48,7 +48,7 @@ def loadList(param):
             handle=addon_handle,
             url=url2,
             listitem=li,
-            isFolder=itm.mode != 'play')
+            isFolder=itm.mode != 'video')
     
     xbmcplugin.endOfDirectory(addon_handle)
     
@@ -63,4 +63,5 @@ else:
           succeeded=True,
           updateListing=False)
     else:
+        print 'list'
         loadList(args['param'][0])

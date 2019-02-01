@@ -46,6 +46,7 @@ def getList(param):
                                 imgURL=img['$']
                 list.append(item.Directory(show['title'],param,show['@id'],imgURL))
     if len(params)==3:
+        print VIDEOLIST % (BRANDID,params[2])
         filPrgm=utils.getWebContentSave(VIDEOLIST % (BRANDID,params[2]),'catalog_%s.json' % params[2])
         jsonParser     = json.loads(filPrgm) 
         uniqueItem = dict()  

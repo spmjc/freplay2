@@ -1,10 +1,23 @@
 $def with (myList)
 
 <html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	</head>
 	<body>
-		<table>
-			$for name, link, icon, infoLabels, mode in myList:
-			<tr><td>$name</td></tr>
-		</table>
+		<div class="container">
+  		<h2>Freplay</h2>
+			<div class="list-group">
+				$for itm in myList:
+					$if itm.mode=='video':
+						<a class="list-group-item" href="$itm.url">$itm.getDisplayTitle()</a>
+					$else:
+						<a class="list-group-item" href="/$itm.url">$itm.getDisplayTitle()</a>
+			</div>
+		</div>
 	</body>
 </html>
