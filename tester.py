@@ -88,8 +88,8 @@ def tester(param):
 
 start()
 
-#tester('allocine+allocine')
-tester(None)
+tester('thecw+thecw')
+#tester(None)
 utils.empty_TMP()
 end()
 

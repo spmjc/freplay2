@@ -113,6 +113,15 @@ def getWebContentSave(url,file_name):
             
     return file_content
     
+def url_exists(url):
+    exists=True
+    try:
+        urllib2.urlopen(url)
+    except :
+        exists=False
+        
+    return exists
+    
 def format_filename(s):
     """Take a string and return a valid filename constructed from the string.
     Uses a whitelist approach: any characters not present in valid_chars are
