@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+import os
+
+import globalvar
 
 class Item:
     
@@ -30,7 +33,7 @@ class Channel(Item):
     def __init__(self, name, url, icon=''):
         self.name=name
         self.url=url
-        self.icon=icon
+        self.icon=os.path.join(globalvar.MEDIA_DIR,url.split('+')[1] + '.png')
         self.mode='channel'
         
 class Directory(Item):
@@ -46,7 +49,7 @@ class PrevPage(Item):
     
     def  __init__(self, parent):
         self.name='<< Page Precedente'
-        self.icon=''
+        self.icon=os.path.join(globalvar.MEDIA_DIR,'prev.png')
         self.parent=parent
         self.mode='folder'
         
@@ -58,7 +61,7 @@ class NextPage(Item):
     
     def  __init__(self, parent):
         self.name='Page Suivante >>'
-        self.icon=''
+        self.icon=os.path.join(globalvar.MEDIA_DIR,'next.png')
         self.parent=parent
         self.mode='folder'
         
@@ -75,4 +78,4 @@ class Video(Item):
         self.qualityName=qualityName
         self.resolution=resolution
         self.fileType=fileType
-        
+        self.icon=''

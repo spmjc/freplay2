@@ -4,7 +4,7 @@ import json
 import os
 
 baseGithubURL='https://api.github.com/repos/spmjc/freplay2/contents'
-baseLocalURL='/home/ubuntu/workspace/freplay/'
+baseLocalURL=os.path.join(os.path.join(os.path.dirname(os.path.abspath(__file__)),os.pardir),os.pardir)
 
 addFile=[]
 updateFile=[]
